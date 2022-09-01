@@ -72,8 +72,8 @@ new Promise(async (resolve) => {
     maxW: 353,
   }
   resolve()
-}).then(() => {
-  initScene(scenesMap.preloader)
+}).then(async () => {
+  await initScene(scenesMap.preloader)
   animation()
 })
 
@@ -82,9 +82,9 @@ function animation() {
   requestAnimationFrame(animation)
 }
 
-function initScene(key) {
+async function initScene(key) {
   currentScenes = key
-  scenes[currentScenes].init()
+  await scenes[currentScenes].init()
 }
 
 scenes.preloader = {
@@ -147,6 +147,7 @@ scenes.menu = {
       const { x, y, w, h } = imageResource[ResourceMap.button]
       const clickX = e.clientX - canvas.offsetLeft
       const clickY = e.clientY - canvas.offsetTop
+      console.log(canvas.offsetTop, canvas.offsetLeft)
       const isClickInBtn =
         clickX > x && clickX < x + w && clickY > y && clickY < y + h
       if (isClickInBtn) {
